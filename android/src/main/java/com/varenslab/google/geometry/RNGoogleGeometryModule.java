@@ -52,4 +52,22 @@ public class RNGoogleGeometryModule extends ReactContextBaseJavaModule {
 
       completionCallback.invoke(isWithinCoverage);
     }
+
+    // //isLocationOnPath(LatLng point, java.util.List<LatLng> polyline, boolean geodesic)
+
+    //       @ReactMethod
+    // public void isLocationOnPath(
+    //     ReadableMap point,
+    //     ReadableArray polyline,
+    //     Boolean geodesic,
+    //     Callback completionCallback) {
+
+    // }
+
+    //decode(java.lang.String encodedPath)
+    @ReactMethod
+    public void decode(String encodedPath, Callback completionCallback) {
+      ReadableArray arr = PolyUtil.decode(encodedPath);
+      completionCallback.invoke(arr);
+    }
 }

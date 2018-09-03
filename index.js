@@ -3,8 +3,6 @@ import { NativeModules } from 'react-native';
 
 const { RNGoogleGeometry } = NativeModules;
 
-
-
 const containsLocation  = async (point,polygon)=>{
     let isInLocation = await RNGoogleGeometry.containsLocation(point,polygon)
     if(isInLocation){
@@ -14,4 +12,9 @@ const containsLocation  = async (point,polygon)=>{
     }
 }
 
-export default containsLocation;
+const decode  = async (encodedPath)=>{
+    let polyLine = await RNGoogleGeometry.decode(encodedPath)
+    return polyLine;
+}
+
+export default { containsLocation, decode }
