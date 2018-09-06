@@ -31,77 +31,75 @@ public class RNGoogleGeometryModule extends ReactContextBaseJavaModule {
     return "RNGoogleGeometry";
   }
 
-  // @ReactMethod
-  // public void containsLocation(
-  //     ReadableMap point,
-  //     ReadableArray polygon,
-  //     Callback completionCallback) {
+  @ReactMethod
+  public void containsLocation(
+      ReadableMap point,
+      ReadableArray polygon,
+      Callback completionCallback) {
 
-  //   LatLng locationPoint = new LatLng(
-  //       point.getDouble("lat"),
-  //       point.getDouble("lng")
-  //   );
+    LatLng locationPoint = new LatLng(
+        point.getDouble("lat"),
+        point.getDouble("lng")
+    );
 
-  //   List<LatLng> polygonList = new ArrayList<>();
+    List<LatLng> polygonList = new ArrayList<>();
 
-  //   for (int i = 0; i < polygon.size(); i++) {
-  //     ReadableMap vertex = polygon.getMap(i);
-  //     polygonList.add(
-  //         new LatLng(
-  //           vertex.getDouble("lat"),
-  //           vertex.getDouble("lng")
-  //         )
-  //     );
-  //   }
-
-  //   boolean isWithinCoverage = PolyUtil.containsLocation(locationPoint, polygonList, false);
-
-  //   completionCallback.invoke(isWithinCoverage);
-  // }
-
-    // //isLocationOnPath(LatLng point, java.util.List<LatLng> polyline, boolean geodesic)
-
-    @ReactMethod
-    public void isLocationOnPath(
-        ReadableMap point,
-        ReadableArray polyline,
-        Boolean geodesic,
-        Double tolerance,
-        Promise promise) {
-
-        LatLng locationPoint = new LatLng(
-            point.getDouble("latitude"),
-            point.getDouble("longitude")
-        );
-
-        List<LatLng> pL = new ArrayList<>();
-
-        for (int i = 0; i < polyline.size(); i++) {
-          ReadableMap p = polyline.getMap(i);
-          pL.add(
-              new LatLng(
-                p.getDouble("latitude"),
-                p.getDouble("longitude")
-              )
-          );
-        }
-
-        Boolean onPath = PolyUtil.isLocationOnPath(locationPoint, pL, geodesic, tolerance);
-        promise.resolve(onPath);
+    for (int i = 0; i < polygon.size(); i++) {
+      ReadableMap vertex = polygon.getMap(i);
+      polygonList.add(
+          new LatLng(
+            vertex.getDouble("lat"),
+            vertex.getDouble("lng")
+          )
+      );
     }
 
-    @ReactMethod
-    public void decode(String encodedPath, Promise promise) {
-      List<LatLng> polyPoints = PolyUtil.decode(encodedPath);
+    boolean isWithinCoverage = PolyUtil.containsLocation(locationPoint, polygonList, false);
 
-      WritableArray points = Arguments.createArray();
-      for(LatLng latlng: polyPoints){
-        WritableMap map = Arguments.createMap();
-        map.putDouble("latitude", latlng.latitude);
-        map.putDouble("longitude", latlng.longitude);
-        points.pushMap(map);
+    completionCallback.invoke(isWithinCoverage);
+  }
+
+  @ReactMethod
+  public void isLocationOnPath(
+      ReadableMap point,
+      ReadableArray polyline,
+      Boolean geodesic,
+      Double tolerance,
+      Promise promise) {
+
+      LatLng locationPoint = new LatLng(
+          point.getDouble("latitude"),
+          point.getDouble("longitude")
+      );
+
+      List<LatLng> pL = new ArrayList<>();
+
+      for (int i = 0; i < polyline.size(); i++) {
+        ReadableMap p = polyline.getMap(i);
+        pL.add(
+            new LatLng(
+              p.getDouble("latitude"),
+              p.getDouble("longitude")
+            )
+        );
       }
 
-      promise.resolve(points);
+      Boolean onPath = PolyUtil.isLocationOnPath(locationPoint, pL, geodesic, tolerance);
+      promise.resolve(onPath);
+  }
+
+  @ReactMethod
+  public void decode(String encodedPath, Promise promise) {
+    List<LatLng> polyPoints = PolyUtil.decode(encodedPath);
+
+    WritableArray points = Arguments.createArray();
+    for(LatLng latlng: polyPoints){
+      WritableMap map = Arguments.createMap();
+      map.putDouble("latitude", latlng.latitude);
+      map.putDouble("longitude", latlng.longitude);
+      points.pushMap(map);
     }
+
+    promise.resolve(points);
+  }
 }
