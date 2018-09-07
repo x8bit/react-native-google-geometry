@@ -6,19 +6,18 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
                   RNGoogleGeometry
                    DESC
-  s.homepage     = ""
+  s.homepage     = "https://github.com/x8bit/react-native-google-geometry"
   s.license      = "MIT"
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
   s.author             = { "author" => "author@domain.cn" }
-  s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/author/RNGoogleGeometry.git", :tag => "master" }
+  s.platform     = :ios, "8.0"
+  s.source       = { :git => "https://github.com/x8bit/react-native-google-geometry.git", :tag => "master" }
   s.source_files  = "RNGoogleGeometry/**/*.{h,m}"
-  s.requires_arc = true
+  #s.requires_arc = true
+  s.compiler_flags = '-fno-modules'
 
-
-  s.dependency "React"
-  #s.dependency "others"
-
+  s.dependency 'React'
+  s.dependency 'GoogleMaps', '2.5.0'
 end
 
   
