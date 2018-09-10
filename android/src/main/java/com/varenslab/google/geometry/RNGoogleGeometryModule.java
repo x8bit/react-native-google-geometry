@@ -35,7 +35,7 @@ public class RNGoogleGeometryModule extends ReactContextBaseJavaModule {
   public void containsLocation(
       ReadableMap point,
       ReadableArray polygon,
-      Callback completionCallback) {
+      Promise completionCallback) {
 
     LatLng locationPoint = new LatLng(
         point.getDouble("lat"),
@@ -56,7 +56,7 @@ public class RNGoogleGeometryModule extends ReactContextBaseJavaModule {
 
     boolean isWithinCoverage = PolyUtil.containsLocation(locationPoint, polygonList, false);
 
-    completionCallback.invoke(isWithinCoverage);
+    completionCallback.resolve(isWithinCoverage);
   }
 
   @ReactMethod
