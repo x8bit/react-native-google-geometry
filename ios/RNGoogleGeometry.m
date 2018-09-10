@@ -26,6 +26,9 @@ RCT_EXPORT_METHOD(
   resolver:(RCTPromiseResolveBlock)resolve
   rejecter:(RCTPromiseRejectBlock)reject)
 {
+    self.resolve = resolve;
+    self.reject = reject;
+    
     CLLocationCoordinate2D locationPoint = CLLocationCoordinate2DMake(
         [[point objectForKey:@"lat"] doubleValue],
         [[point objectForKey:@"lng"] doubleValue]
@@ -52,6 +55,9 @@ RCT_EXPORT_METHOD(
   resolver:(RCTPromiseResolveBlock)resolve 
   rejecter:(RCTPromiseRejectBlock)reject)
 {
+    self.resolve = resolve;
+    self.reject = reject;
+
     CLLocationCoordinate2D locationPoint = CLLocationCoordinate2DMake(
       [[point objectForKey:@"latitude"] doubleValue],
       [[point objectForKey:@"longitude"] doubleValue]
